@@ -48,3 +48,6 @@ jobs:
         label: Coverage
         message: ${{ env.COVERAGE }}%
         color: ${{ env.COLOR }}
+
+    - name: Go report card
+      uses: creekorful/goreportcard-action@v1.0
