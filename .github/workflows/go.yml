@@ -49,5 +49,13 @@ jobs:
         message: ${{ env.COVERAGE }}%
         color: ${{ env.COLOR }}
 
-    - name: Go report card
-      uses: creekorful/goreportcard-action@v1.0
+    - name: Install go report card
+      run: |
+        git clone https://github.com/gojp/goreportcard.git
+        cd goreportcard
+        make install
+        go get -u github.com/client9/misspell/cmd/misspell
+        go install ./cmd/goreportcard-cli
+      
+    - name: Run go report card
+      run: goreportcard-cli
