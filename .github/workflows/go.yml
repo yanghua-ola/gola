@@ -39,7 +39,7 @@ jobs:
         echo "COVERAGE=$coverage" >> $GITHUB_ENV
         echo "COLOR=$color" >> $GITHUB_ENV
 
-    - name: Create the Badge
+    - name: Create code coverage badge
       uses: schneegans/dynamic-badges-action@v1.1.0
       with:
         auth: ${{ secrets.GIST }}
@@ -54,8 +54,21 @@ jobs:
         git clone https://github.com/gojp/goreportcard.git
         cd goreportcard
         make install
-        go get -u github.com/client9/misspell/cmd/misspell
+        go install github.com/client9/misspell/cmd/misspell
         go install ./cmd/goreportcard-cli
       
     - name: Run go report card
-      run: goreportcard-cli
+      run: |
+        goreportcard-cli
+        grade=$(goreportcard-cli | head -1)
+        echo "GRADE=${grade:7}" >> $GITHUB_ENV
+
+    - name: Create go report badge
+      uses: schneegans/dynamic-badges-action@v1.1.0
+      with:
+        auth: ${{ secrets.GIST }}
+        gistID: f91bfcfee734a57cbdc5001d3886c8a7
+        filename: gola.goreport.json
+        label: Go Report
+        message: ${{ env.GRADE }}
+        color: orange
