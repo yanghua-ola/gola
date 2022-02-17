@@ -1,0 +1,26 @@
+name: Project automations
+on:
+  issues:
+    types:
+      - opened
+      - reopened
+
+jobs:
+  issue_opened:
+    name: issue opened
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add issue to Project
+        uses: leonsteinhaeuser/project-beta-automations@v1.2.0
+        with:
+          gh_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          user: yanghua-ola
+          # organization: sample-org
+          project_id: 1
+          resource_node_id: ${{ github.event.issue.node_id }}
+
+      - name: Label for triage
+        uses: andymckay/labeler@master
+        with:
+          add-labels: "triage"
+        
