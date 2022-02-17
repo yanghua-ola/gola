@@ -1,15 +1,19 @@
 name: Project automations
 on:
   issues:
-    types:
-      - opened
-      - reopened
+#     types:
+#       - opened
+#       - reopened
 
 jobs:
   issue_opened:
     name: issue opened
     runs-on: ubuntu-latest
     steps:
+      - env:
+          EVENT_CONTEXT: ${{ toJSON(github.event) }}
+        run: |
+          echo $EVENT_CONTEXT
       - name: Add issue to Project
         uses: leonsteinhaeuser/project-beta-automations@v1.2.0
         with:
