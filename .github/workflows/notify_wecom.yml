@@ -15,8 +15,13 @@ jobs:
     steps:
       - name: Clean up body message
         run: |
-          content=$(echo '${{ github.event.issue.body }}' | sed -e '/<!--/d' | sed -e 's/ ###//g' | jq -Rs '.')
-          echo "ISSUE_BODY='$content'"> $GITHUB_ENV
+          content=$(cat<<EOF | jq -Rs '.'
+          # <font color="warning">${{ github.event.issue.title }}</font>
+          $(echo '${{ github.event.issue.body }}' | sed -e '/<!--/d' | sed -e 's/ ###//g')
+          [查看原文](${{ github.event.issue.html_url }})
+          EOF
+          )
+          echo "MSG_CONTENT='$content'"> $GITHUB_ENV
         
       - name: Send to WeCom
         run: |
@@ -26,6 +31,6 @@ jobs:
           {
               "msgtype": "markdown",
               "markdown": {
-                  "content": "# <font color=\"warning\">${{ github.event.issue.title }}</font>\r\n${{ env.ISSUE_BODY }}\r\n[查看原文](${{ github.event.issue.html_url }})"
+                  "content": "{{ env.MSG_CONTENT }}"
               }
           }';
