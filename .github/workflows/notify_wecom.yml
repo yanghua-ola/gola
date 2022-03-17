@@ -18,7 +18,8 @@ jobs:
           echo "ISSUE_BODY<<EOF" >> $GITHUB_ENV
           echo '${{ github.event.issue.body }}' | sed -e 's/<!--[^>]*-->[\r\n]*//g' | sed -e 's/ ###//g' >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-        
+          cat $GITHUB_ENV
+      
       - name: Send to WeCom
         run: |
           curl -s '${{ secrets.BOT_URL }}' \
@@ -27,6 +28,6 @@ jobs:
           {
               "msgtype": "markdown",
               "markdown": {
-                  "content": "# <font color=\"warning\">${{ github.event.issue.title }}</font>\r\n\r\n${{ env.ISSUE_BODY }}\r\n[查看原文](${{ github.event.issue.html_url }})"
+                  "content": "# <font color=\"warning\">${{ github.event.issue.title }}</font>\r\n${{ env.ISSUE_BODY }}\r\n[查看原文](${{ github.event.issue.html_url }})"
               }
           }';
