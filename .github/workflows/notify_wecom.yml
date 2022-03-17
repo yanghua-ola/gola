@@ -1,6 +1,6 @@
 # This workflow add GitHub issues to Project and label them for triage upon creation
 
-name: GitHub Issues Management
+name: WeCom test
 on:
   issues:
     types:
@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Clean up body message
         run: |
-          content=$(echo ${{ github.event.issue.body }} | sed -e 's/<!--[^>]*-->[\r\n]*//g' | sed -e 's/ ###//g')
+          content=$(echo '${{ github.event.issue.body }}' | sed -e 's/<!--[^>]*-->[\r\n]*//g' | sed -e 's/ ###//g')
           echo "ISSUE_BODY=$content" >> $GITHUB_ENV
         
       - name: Send to WeCom
