@@ -1,0 +1,31 @@
+# This workflow add GitHub issues to Project and label them for triage upon creation
+
+name: GitHub Issues Management
+on:
+  issues:
+    types:
+      - opened
+      - reopened
+
+jobs:
+  notify_wecom:
+    name: send bug notification to wecom
+    runs-on: ubuntu-latest
+    if: ${{ contains(github.event.issue.labels.*.name, 'bug') }}
+    steps:
+      - name: Clean up body message
+        run: |
+          content=$(echo ${{ github.event.issue.body }} | sed -e 's/<!--[^>]*-->[\r\n]*//g' | sed -e 's/ ###//g')
+          echo "ISSUE_BODY=$content" >> $GITHUB_ENV
+        
+      - name: Send to WeCom
+        run: |
+          curl -s '${{ secrets.BOT_URL }}' \
+          -H 'Content-Type: application/json' \
+          -d '
+          {
+              "msgtype": "markdown",
+              "markdown": {
+                  "content": "# <font color=\"warning\">${{ github.event.issue.title }}</font>\r\n\r\n${{ env.ISSUE_BODY }}\r\n[查看原文](${{ github.event.issue.html_url }})"
+              }
+          }';
