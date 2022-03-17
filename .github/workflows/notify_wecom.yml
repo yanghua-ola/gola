@@ -15,11 +15,9 @@ jobs:
     steps:
       - name: Clean up body message
         run: |
-          echo "ISSUE_BODY<<EOF" >> $GITHUB_ENV
-          echo '${{ github.event.issue.body }}' | sed -e 's/<!--[^>]*-->[\r\n]*//g' | sed -e 's/ ###//g' >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-          cat $GITHUB_ENV
-      
+          content=$(echo '${{ github.event.issue.body }}' | sed -e '/<!--/d' | sed -e 's/ ###//g' | jq -Rs '.')
+          echo "ISSUE_BODY='$content'"> $GITHUB_ENV
+        
       - name: Send to WeCom
         run: |
           curl -s '${{ secrets.BOT_URL }}' \
