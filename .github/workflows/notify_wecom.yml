@@ -31,6 +31,6 @@ jobs:
           {
               "msgtype": "markdown",
               "markdown": {
-                  "content": "{{ env.MSG_CONTENT }}"
+                  "content": "${{ env.MSG_CONTENT }}"
               }
           }';
