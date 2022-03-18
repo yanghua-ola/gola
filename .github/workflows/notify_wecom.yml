@@ -17,6 +17,7 @@ jobs:
         run: |
           content=$(cat<<EOF | sed -e '/<!--/d' | sed -e 's/ ###//g' | jq -Rs '.' | sed -e 's/\\n"/"/g' | sed -e 's/\\n/\\r\\n/g'
           # <font color=\"warning\">${{ github.event.issue.title }}</font>
+    
           ${{ github.event.issue.body }}
 
           [查看原文](${{ github.event.issue.html_url }})
