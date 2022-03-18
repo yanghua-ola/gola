@@ -15,9 +15,9 @@ jobs:
     steps:
       - name: Clean up body message
         run: |
-          content=$(cat<<EOF | jq -Rs '.'
+          content=$(cat<<EOF | sed -e '/<!--/d' | sed -e 's/ ###//g' | jq -Rs '.'
           # <font color=\"warning\">${{ github.event.issue.title }}</font>
-          $(echo '${{ github.event.issue.body }}' | sed -e '/<!--/d' | sed -e 's/ ###//g')
+          ${{ github.event.issue.body }}
 
           [查看原文](${{ github.event.issue.html_url }})
           EOF
@@ -35,3 +35,4 @@ jobs:
                   "content": "${{ env.MSG_CONTENT }}"
               }
           }';
+
