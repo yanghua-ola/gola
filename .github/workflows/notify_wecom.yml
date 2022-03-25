@@ -27,7 +27,7 @@ jobs:
           )
           echo "MSG_CONTENT='$content'"> $GITHUB_ENV
 
-          cat<<EOF | curl -s '${{ secrets.BOT_URL }}'-H 'Content-Type: application/json' -d @-
+          cat<<EOF | curl -s '${{ secrets.BOT_URL }}' -H 'Content-Type: application/json' -d @-
           {
               "msgtype": "markdown",
               "markdown": {
