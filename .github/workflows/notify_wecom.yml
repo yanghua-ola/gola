@@ -25,13 +25,12 @@ jobs:
           [查看原文](${{ github.event.issue.html_url }})
           EOF
           )
-          echo "MSG_CONTENT='$content'"> $GITHUB_ENV
 
           cat<<EOF | curl -s '${{ secrets.BOT_URL }}' -H 'Content-Type: application/json' -d @-
           {
               "msgtype": "markdown",
               "markdown": {
-                  "content": "$content"
+                  "content": $content
               }
           }
           EOF
