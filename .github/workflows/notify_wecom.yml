@@ -34,4 +34,13 @@ jobs:
               }
           }
           EOF
+          
+          cat<<EOF | curl -s '${{ secrets.BOT_URL }}' -H 'Content-Type: application/json' -d @-
+          {
+              "msgtype": "text",
+              "text": {
+                  "content": "${{ github.event.issue.html_url }}"
+              }
+          }
+          EOF
 
