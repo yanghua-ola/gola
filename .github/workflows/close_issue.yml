@@ -17,7 +17,7 @@ jobs:
         run: |
           content=$(cat<<EOF | jq -Rs '.'
           # <font color="info">${{ github.event.issue.title }}</font>
-          被**${{ github.event.issue.sender.login }}**关闭啦～🥳 
+          被**${{ github.event.sender.login }}**关闭啦～🥳 
 
 
           [查看原文](${{ github.event.issue.html_url }})
