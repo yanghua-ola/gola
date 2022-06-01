@@ -1,0 +1,33 @@
+# This workflow send notification to WeCom group when an issue was closed
+
+name: Send GitHub Issue Closure Notification
+on:
+  issues:
+    types:
+      - closed
+
+jobs:
+  notify_wecom:
+    name: send closure notification to wecom
+    runs-on: ubuntu-latest
+    if: ${{ contains(github.event.issue.labels.*.name, 'bug') }}
+    steps:
+      - name: Send notification to WeCom
+        if: ${{ contains(github.event.issue.labels.*.name, 'bug') }}
+        run: |
+          content=$(cat<<EOF | jq -Rs '.'
+          # <font color="info">${{ github.event.issue.title }}</font>
+          被**${{ github.event.issue.sender.login }}**关闭啦～🥳 
+
+
+          [查看原文](${{ github.event.issue.html_url }})
+          EOF
+          )
+          cat<<EOF | curl -s '${{ secrets.BOT_URL }}' -H 'Content-Type: application/json' -d @-
+          {
+              "msgtype": "markdown",
+              "markdown": {
+                  "content": $content
+              }
+          }
+          EOF
