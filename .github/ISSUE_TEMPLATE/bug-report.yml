@@ -1,69 +1,9 @@
-name: Bug New
-description: Create a bug report | 报告问题
+name: Bug
+description: Create a bug report
 labels: ["Bug"]
 body:
-  - type: markdown
-    attributes:
-      value: 请务必**认真填写**问题报告，**准确翔实**的报告对于定位和解决问题非常重要。英语熟练的话尽量使用英语
-
   - type: textarea
     attributes:
-      label: Describe the bug | 问题描述
-      description: 简单描述碰到的问题
+      label: Describe the bug
     validations:
       required: true
-
-  - type: input
-    attributes:
-      label: User ID | 用户ID
-      placeholder: "123456"
-    validations:
-      required: true
-
-  - type: input
-    attributes:
-      label: Room ID | 房间ID
-      placeholder: "100000001"
-
-  - type: textarea
-    attributes:
-      label: To Reproduce | 复现步骤
-      description: 请详细描述复现的步骤
-      value: |
-        1.
-        2.
-    validations:
-      required: true
-
-  - type: textarea
-    attributes:
-      label: Expected behavior | 预期表现
-      description: 请描述正确表现
-
-  - type: textarea
-    attributes:
-      label: Screenshots | 视频/截图/Guagua截图
-      description: Guagua截图非常有用，可在debug包获得
-
-  - type: dropdown
-    attributes:
-      label: Platform | 客户端平台
-      multiple: false
-      options:
-        - iOS
-        - Android
-        - Web
-
-  - type: dropdown
-    attributes:
-      label: Source of Installation | 安装渠道
-      multiple: false
-      options:
-        - 商店
-        - 官网
-        - debug包
-
-  - type: textarea
-    attributes:
-      label: Remark | 其它
-      description: 补充信息，如手机型号、网络环境
