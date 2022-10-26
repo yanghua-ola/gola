@@ -1,4 +1,4 @@
-name: Bug
+name: Bug New
 description: Create a bug report
 labels: ["Bug"]
 body:
