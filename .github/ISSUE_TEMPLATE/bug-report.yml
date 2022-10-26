@@ -1,62 +1,69 @@
-name: Bug Report
-description: File a bug report
-title: "[Bug]: "
-labels: ["bug", "triage"]
-assignees:
-  - octocat
+name: Bug
+description: Create a bug report | 报告问题
+labels: ["Bug"]
 body:
   - type: markdown
     attributes:
-      value: |
-        Thanks for taking the time to fill out this bug report!
+      value: 请务必**认真填写**问题报告，**准确翔实**的报告对于定位和解决问题非常重要。英语熟练的话尽量使用英语
+
+  - type: textarea
+    attributes:
+      label: Describe the bug | 问题描述
+      description: 简单描述碰到的问题
+    validations:
+      required: true
+
   - type: input
-    id: contact
     attributes:
-      label: Contact Details
-      description: How can we get in touch with you if we need more info?
-      placeholder: ex. email@example.com
-    validations:
-      required: false
-  - type: textarea
-    id: what-happened
-    attributes:
-      label: What happened?
-      description: Also tell us, what did you expect to happen?
-      placeholder: Tell us what you see!
-      value: "A bug happened!"
+      label: User ID | 用户ID
+      placeholder: "123456"
     validations:
       required: true
-  - type: dropdown
-    id: version
+
+  - type: input
     attributes:
-      label: Version
-      description: What version of our software are you running?
-      options:
-        - 1.0.2 (Default)
-        - 1.0.3 (Edge)
+      label: Room ID | 房间ID
+      placeholder: "100000001"
+
+  - type: textarea
+    attributes:
+      label: To Reproduce | 复现步骤
+      description: 请详细描述复现的步骤
+      value: |
+        1.
+        2.
     validations:
       required: true
-  - type: dropdown
-    id: browsers
-    attributes:
-      label: What browsers are you seeing the problem on?
-      multiple: true
-      options:
-        - Firefox
-        - Chrome
-        - Safari
-        - Microsoft Edge
+
   - type: textarea
-    id: logs
     attributes:
-      label: Relevant log output
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
-      render: shell
-  - type: checkboxes
-    id: terms
+      label: Expected behavior | 预期表现
+      description: 请描述正确表现
+
+  - type: textarea
     attributes:
-      label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com)
+      label: Screenshots | 视频/截图/Guagua截图
+      description: Guagua截图非常有用，可在debug包获得
+
+  - type: dropdown
+    attributes:
+      label: Platform | 客户端平台
+      multiple: false
       options:
-        - label: I agree to follow this project's Code of Conduct
-          required: true
+        - iOS
+        - Android
+        - Web
+
+  - type: dropdown
+    attributes:
+      label: Source of Installation | 安装渠道
+      multiple: false
+      options:
+        - 商店
+        - 官网
+        - debug包
+
+  - type: textarea
+    attributes:
+      label: Remark | 其它
+      description: 补充信息，如手机型号、网络环境
